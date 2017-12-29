@@ -14,6 +14,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.omg.CORBA.Environment;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.sql.Date;
 import java.sql.Time;
@@ -35,6 +36,7 @@ public class ControllerInterceptor {
 	@Pointcut("execution(* per.fyh.springbootdemo.controller..*(..)) && @annotation(org.springframework.web.bind.annotation.RequestMapping)")
 	public void controllerMethodPointcutBase() {
 	}
+
 	@Around("controllerMethodPointcutBase()")
 	public Object baseInterceptor(ProceedingJoinPoint pjp) {
 		Object result = null;
@@ -49,6 +51,10 @@ public class ControllerInterceptor {
 		for (Object arg : args) {
 			if (arg instanceof Map<?, ?>) {
 				Map<String, Object> map = (Map<String, Object>) arg;
+			} else if (arg instanceof HttpServletRequest) {
+				//获取query 或post 的参数
+				HttpServletRequest request = (HttpServletRequest) arg;
+				Map<String, String[]> paramMap = request.getParameterMap();
 			}
 		}
 		try {
@@ -60,11 +66,3 @@ public class ControllerInterceptor {
 	}
 }
 
-
-@Aspect
-class CarAdvice{
-	@Before("execution(* ..*)")
-	public void beforeAttack(Joinpoint joinpoint){
-		System.out.println("");
-	}
-}
