@@ -2,6 +2,7 @@ package per.fyh.springbootdemo.controller;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import per.fyh.springbootdemo.domain.ResultData;
 import per.fyh.springbootdemo.domain.User;
@@ -12,7 +13,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-@Log4j2
+//@Log4j2
+@Slf4j
 public class UserController {
 
 	@Resource
@@ -65,9 +67,9 @@ public class UserController {
 //            @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long"),
 //            @ApiImplicitParam(name = "user", value = "用户详细实体user", required = true, dataType = "User")
 //    })
-//    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-//    public String putUser(@PathVariable int id, @ModelAttribute User user) {
-//        userService.save(user);
-//        return "success";
-//    }
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public String putUser(@PathVariable int id, @ModelAttribute User user) {
+        userService.save(user);
+        return "success";
+    }
 }

@@ -3,8 +3,6 @@ package per.fyh.springbootdemo.controller;
 import com.mysql.jdbc.log.LogFactory;
 
 import org.aopalliance.intercept.Joinpoint;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -21,15 +19,18 @@ import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @Description:Controller的拦截器
  * @Author：Foyerry
  * @Date：Created in  2017/12/26 11:37
  */
 @Aspect
+@Component
 public class ControllerInterceptor {
-	private static final Logger logger = LogManager.getLogger(ControllerInterceptor.class);
-
+	private static final Logger logger =LoggerFactory.getLogger(ControllerInterceptor.class);
 	/**
 	 * 拦截controller 中有@RequestMapping注解的方法（记录请求日志和异常处理）
 	 */
@@ -55,6 +56,9 @@ public class ControllerInterceptor {
 				//获取query 或post 的参数
 				HttpServletRequest request = (HttpServletRequest) arg;
 				Map<String, String[]> paramMap = request.getParameterMap();
+				if (paramMap != null && paramMap.size() > 0){
+					System.out.println(paramMap.values());
+				}
 			}
 		}
 		try {
