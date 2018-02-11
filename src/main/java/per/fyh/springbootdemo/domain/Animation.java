@@ -1,5 +1,7 @@
 package per.fyh.springbootdemo.domain;
 
+import java.util.Date;
+
 /**
  * @Description:
  * @Author：Foyerry
@@ -9,6 +11,27 @@ public class Animation {
 	private int id;
 	private String  name;
 	private float score;
+	private int status;
+
+
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public Date getPlay_date() {
+		return play_date;
+	}
+
+	public void setPlay_date(Date play_date) {
+		this.play_date = play_date;
+	}
+
+	private Date play_date;
 
 	public Animation(String name, float score) {
 		this.name = name;

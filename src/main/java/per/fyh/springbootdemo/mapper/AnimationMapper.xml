@@ -1,56 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
-例如namespace="per.fyh.springbootdemo.mapper.AnimationMapper"就是per.fyh.springbootdemo.mapper包名)+AnimationMapper(AnimationMapper.xml文件去除后缀)
- -->
 <mapper namespace="per.fyh.springbootdemo.mapper.AnimationMapper">
 
-    <!--自定义返回结果集-->
-    <resultMap id="animationMap" type="Animation">
-        <id property="id" column="id" javaType="java.lang.Integer"></id>
-        <result property="name" column="name" javaType="java.lang.String"></result>
-        <result property="score" column="score" javaType="java.lang.Float"></result>
-    </resultMap>
-
-    <!-- 在select标签中编写查询的SQL语句， 设置select标签的id属性为selectAnimationById，id属性值必须是唯一的，不能够重复
-    使用parameterType属性指明查询时使用的参数类型，
-    resultType属性指明查询返回的结果集类型
-    resultType="per.fyh.springbootdemo.domain.Animation"就表示将查询结果封装成一个Animation类的对象返回
-    -->
-
-
-    <!-- useGeneratedKeys：（ 仅 对 insert 有 用 ） 这 会 告 诉 MyBatis 使 用 JDBC 的getGeneratedKeys
-     方法来取出由数据（比如：像 MySQL 和 SQLServer 这样的数据库管理系统的自动递增字段）内部生成的主键。默认值： false。
-     oracle 不支持应该设置成 useGeneratedKeys="false" 不然会报错
--->
-    <!--keyProperty： （仅对 insert有用）标记一个属性， MyBatis 会通过 getGeneratedKeys或者通过 insert 语句的 selectKey 子元素设置它的值。默认：不设置。 -->
-    <!--添加-->
-    <insert id="insertAnimation" useGeneratedKeys="true" keyProperty="id">
-          insert into animations (name,score) values (#{name},#{score})
-    </insert>
-
-    <delete id="deleteAnimation" parameterType="int">
-          delete from animations where id=#{id}
-    </delete>
-
-    <update id="updateAnimation">
-          update animations set name=#{name},score=#{score} where id=#{id}
-    </update>
-
-    <!--根据id查询得到一个Animation对象-->
-    <!--方式 1-->
-    <!--<select id="selectAnimationById" parameterType="int"-->
-    <!--resultType="per.fyh.springbootdemo.domain.Animation">-->
-    <!--select * from animations where id=#{id}-->
-    <!--</select>-->
-    <!--方式 2-->
-    <select id="selectAnimationById" parameterType="int" resultMap="animationMap">
+    <select id="selectAnimationById" parameterType="int"
+            resultType="per.fyh.springbootdemo.domain.Animation">
         select * from animations where id=#{id}
     </select>
-
-    <select id="selectAllAnimation" resultMap="animationMap">
-        select * from animations
-    </select>
-
-
+    <!--<insert id="insertAnimation" useGeneratedKeys="true" keyProperty="id">-->
+        <!--insert into animations (name,score) values(#{name},#{score})-->
+    <!--</insert>-->
 </mapper>

@@ -24,17 +24,23 @@ import java.util.List;
 public class AnimationController {
 	Logger logger = LoggerFactory.getLogger(AnimationController.class);
 
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	@RequestMapping("/{id}")
+	public Animation selectAnimationById(@PathVariable int id) {
+		try {
+			Animation animation = AnimationService.selectAnimationById(id);
+			return animation;
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return null;
+		}
+
+
+	}
+
+	@RequestMapping("/add")
 	public String addAnimation() {
 		Animation animation = new Animation("灌篮高手", (float) 8.50);
 		boolean result = AnimationService.insertAnimation(animation);
-		logger.info("添加成功");
-		return  "添加成功";
-	}
-
-	@RequestMapping("/{id}")
-	public Animation selectAnimationById(@PathVariable int id){
-		Animation animation=AnimationService.selectAnimationById(id);
-		return animation;
+		return result ? "添加成功" : "添加失败";
 	}
 }

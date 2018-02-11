@@ -11,11 +11,10 @@ import per.fyh.springbootdemo.mapper.AnimationMapper;
  * @Date：Created in  2018/1/2 17:24
  */
 public class AnimationService {
-public static boolean insertAnimation(Animation animation) {
+	public static boolean insertAnimation(Animation animation) {
 		SqlSession session = MybatisDBHelper.getSession();
 		AnimationMapper animationMapper = session.getMapper(AnimationMapper.class);
-
-		int result = 0;
+		boolean result = false;
 		try {
 			result = animationMapper.insertAnimation(animation);
 			session.commit();
@@ -24,7 +23,7 @@ public static boolean insertAnimation(Animation animation) {
 		} finally {
 			session.close();
 		}
-		return result > 0 ? true : false;
+		return result;
 	}
 
 	public static Animation selectAnimationById(int id) {

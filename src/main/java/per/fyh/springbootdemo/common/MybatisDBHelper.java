@@ -15,21 +15,19 @@ import java.io.Reader;
  * @Date：Created in  2018/1/2 17:17
  */
 public class MybatisDBHelper {
-//	public static SqlSessionFactory sqlSessionFactory;
-//
-//	static {
-//		try {
-//			Reader reader = Resources.getResourceAsReader("mybatis.xml");
-//			sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
-//		} catch (Exception e) {
-//
-//		}
-//	}
+	public static SqlSessionFactory sqlSessionFactory;
+
+	static {
+		try {
+			Reader reader = Resources.getResourceAsReader("mybatis.xml");
+			sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+		} catch (Exception e) {
+
+		}
+	}
 
 	public static SqlSession getSession(){
 		try {
-			InputStream reader = Resources.getResourceAsStream("mybatis.xml");
-			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
 			return sqlSessionFactory.openSession();
 		}
 		catch (Exception e){

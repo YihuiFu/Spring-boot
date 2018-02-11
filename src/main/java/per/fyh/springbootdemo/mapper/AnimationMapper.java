@@ -10,13 +10,6 @@ import java.util.List;
  * @Date：Created in  2018/1/2 15:42
  */
 public interface AnimationMapper {
-	 int insertAnimation(Animation animation) throws Exception;
-
-	 int deleteAnimation(int id);
-
-	 int updateAnimation(Animation animation,int id);
-
+	 boolean insertAnimation(Animation animation) throws Exception;
 	 Animation selectAnimationById(int id);
-
-	 List<Animation> selectAllAnimation();
 }
